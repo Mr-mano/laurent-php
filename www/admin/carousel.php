@@ -1,12 +1,10 @@
 <?php
-
-
-require_once __DIR__ . "/../../src/connection.php";
-require_once __DIR__ . "/../../model/database.php";
+require_once __DIR__ . "/../model/database.php";
 
 
 
 /* CAROUSEL 1*/
+
 if(isset($_POST['title']) && isset($_POST['txt']) && isset($_POST['alt']) && (isset($_FILES['image']) && $_FILES['image']['error'] ==0)){
 
     if ($_FILES['image']['size']<= 8000000){ //l'image fait moins de 8MO

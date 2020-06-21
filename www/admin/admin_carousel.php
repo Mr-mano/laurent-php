@@ -1,8 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . "/carousel/carousel.php";
+require_once __DIR__ . "/carousel.php";
 require_once __DIR__ . "/../model/database.php";
-
 
 //$titre_accueil = getAllTitreAccueil();
 
