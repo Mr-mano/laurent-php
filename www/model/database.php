@@ -8,20 +8,11 @@ try {
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES => false
     ]);
-} catch (PDOException $exception) {
-    echo "Erreur de connexion à la base de données";
-    exit;
+} catch (PDOException $e) {
+    echo "Erreur de connexion à la base de données : " . $e->getMessage();
+    exit();
 }
 
-/*function getAllTitreAccueil(){
-    global $bdd;
-
-    $query = 'SELECT * FROM titre_accueil';
-    $req = $bdd->prepare($query);
-    $req->execute();
-
-    return $req->fetchAll();
-}*/
 
 /** Récupère les lignes d'une table donnée en paramètre
  * @param string $table Nom de la table
@@ -29,14 +20,11 @@ try {
  */
 function getCarousel(string $table){
     global $bdd;
-
     $query = "SELECT * FROM $table LIMIT 1";
     $stmt = $bdd->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll();
-    
 }
-
 
 /** Récupère les lignes d'une table donnée en paramètre
  * @param string $table Nom de la table
@@ -51,6 +39,9 @@ function getAllEntities(string $table){
     return $stmt->fetchAll();  
 }
 
+
+
+
 /** Count * sur une table donnée en paramètre
  * @param string $table Nom de la table
  * @return int
@@ -61,25 +52,106 @@ function delete(string $table, int $id){
     $query = " DELETE FROM $table WHERE id = :id";
     $stmt = $bdd->prepare($query);
     $stmt->bindParam(":id", $id);
-
     try{
         $stmt->execute();
-    } catch (PDOException $ex) {
-        $errcode = $ex->getCode();
+    } catch (PDOException $exception) {
+        $errcode = $exception->getCode();
     }
     return $errcode; 
 }
 
 
-// Insert dans la table titre_accueil
-function insertTitreAccueil(string $label){
+    function updateEntity(string $table, int $id, array $values){
+        global $bdd;
+        $errcode = null;
+        $query = "UPDATE $table SET ";
+        foreach ($values as $key => $value) {
+            $query .= "$key = :$key, ";
+        }
+        $query = rtrim($query, ", ");
+        $query .= " WHERE id = :id";
+        $stmt = $bdd->prepare($query);
+        foreach ($values as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        $stmt->bindParam(":id", $id);
+        try {
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            $errcode = $ex->getCode();
+        }
+        return $errcode;
+    }
+
+    function getAllTechniques(int $id = null)
+{
     global $bdd;
 
-    $query = "INSERT INTO titre_accueil (label) VALUES (:label) LIMIT 1";
+    $query = " SELECT * FROM techniques";
+
+    if (isset($id)) {
+        $query .= " WHERE id = :id";
+    }
 
     $stmt = $bdd->prepare($query);
-    $stmt->bindParam(":label", $label);
+    if (isset($id)) {
+        $stmt->bindParam(":id", $id);
+    }
     $stmt->execute();
-    return $bdd->lastInsertId();
+
+    return (isset($id)) ? $stmt->fetch() : $stmt->fetchAll();
 }
+
+
+function editTitreAccueil(int $id, string $nom_prenom, string $job, string $ville) {
+    /* @var $connection PDO */
+    global $bdd;
+    
+    $query = "UPDATE titre_accueil SET nom_prenom = :nom_prenom, job = :job, ville = :ville WHERE id = :id;";
+
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->bindParam(":nom_prenom", $nom_prenom);
+    $stmt->bindParam(":job", $job);
+    $stmt->bindParam(":ville", $ville);
+    $stmt->execute();
+}
+
+function editTechnique(int $id, string $libelle, string $txt, string $alt, string $picture) {
+    /* @var $connection PDO */
+    global $bdd;
+    
+    $query = "UPDATE techniques SET libelle = :libelle, txt = :txt, alt = :alt,  picture = :picture WHERE id = :id;";
+
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->bindParam(":libelle", $libelle);
+    $stmt->bindParam(":txt", $txt);
+    $stmt->bindParam(":alt", $alt);
+    $stmt->bindParam(":picture", $picture);
+    $stmt->execute();
+}
+
+
+function getTechnique(int $id) {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = "SELECT * FROM techniques WHERE techniques.id = :id;";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+
+    return $stmt->fetch();
+}
+
+function getArticlesById() {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = "SELECT id FROM articles";
+    $stmt = $bdd->prepare($query);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
 

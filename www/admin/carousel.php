@@ -29,6 +29,7 @@ if(isset($_POST['title']) && isset($_POST['txt']) && isset($_POST['alt']) && (is
             
         }
         header("Location: admin_carousel.php");
+        exit();
     }
 }
 

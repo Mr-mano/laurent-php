@@ -1,10 +1,16 @@
+
 <?php
 require_once __DIR__ . "/model/database.php";
+
 $titre_accueil = getAllEntities("titre_accueil");
 $carousel = getCarousel("carousel");
 $carousel_2 = getCarousel("carousel_2");
 $carousel_3 = getCarousel("carousel_3");
 $techniques = getAllEntities("techniques");
+$articles = getAllEntities("articles");
+$errcode = isset($_GET["errcode"]) ? $_GET["errcode"] : NULL;
+
+
 ?>
 <?php require_once __DIR__ . "/layout/header.php"; ?>
 	<main role="main">
@@ -72,7 +78,7 @@ $techniques = getAllEntities("techniques");
 				<?php foreach ($titre_accueil as $titre_accueils) : ?>
 					<h3 class="titre__h3-accueil"><?php echo $titre_accueils["nom_prenom"];?></h3>
 					<h1 class="titre__h1-accueil">
-					<?php echo $titre_accueils["titre_accueil"];?>
+					<?php echo $titre_accueils["job"];?>
 					</h1>
 					<h2 class="titre__h2-accueil"><?php echo $titre_accueils["ville"];?></h2>
 				<?php endforeach; ?>
@@ -90,68 +96,35 @@ $techniques = getAllEntities("techniques");
 				</div>
 				<?php endforeach; ?>
 			</div>
+			<hr class="featurette-divider">
 			<!--FIN SPECIALITES, TECHNIQUES-->
 
-			
-			<hr class="featurette-divider">
-
-
-			<!--AFFICHAGES DES ARTICLES-->
-			<div class="row featurette">
-				<div class="col-md-7">
-					<h2 class="featurette-heading">Un projet de peinture?
-						<span class="text-muted" style="font-size:2.5rem;">N'hésitez pas à me contacter.</span>
+<!--AFFICHAGES DES ARTICLES-->
+		
+			<?php
+/* exemple 1 */
+$tab = count($articles); 
+$i = 1;
+?>
+				<?php foreach ($articles as $article) : ?>
+					<?php while ($i <= $tab) : $i++; endwhile;?>
+				<div><?php echo $i++; if($i % 2 == 1) echo " Pair"; else echo " Impair";?></div>
+				<div class="row featurette">
+				
+				<div class="col-md-7 <?php $i++; if($i % 2 == 1) echo "order-md-2";?>">
+					<h2 class="featurette-heading"><?php echo $article["titre_1"]?>
+						<span class="text-muted" style="font-size:2.5rem;"><?php echo $article["titre_2"]?></span>
 					</h2>
-					<p class="lead">Mon entreprise de peinture se situe sur la commune de Morzine, mais je me déplace
-						également aux alentours. Je fais régulièrement des chantiers de rénovation aux Gets, à St jean
-						d'Aulps, Montriond, Avoriaz, Thonon les bains...
-
-					</p>
-				</div>
-				<div class="col-md-5">
-					<img class="featurette-image img-fluid mx-auto"  src="images/pantone.jpg"
-						data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-				</div>
-
-			</div>
-			
-			<hr class="featurette-divider">
-
-			<div class="row featurette">
-				<div class="col-md-7 order-md-2">
-					<h2 class="featurette-heading">Besoin de conseils?
-						<span class="text-muted" style="font-size:2.5rem;">quelles sont les tendances actuelles?</span>
-					</h2>
-					<p class="lead">Trouver le juste équilibre entre le neuf et l'ancien, l'art du compromis entre le
-						bois traditionnel et les enduits d'aujourd'hui, quelles sont les couleurs et les enduits les
-						plus adaptées à mon projet?</p>
-				</div>
-				<div class="col-md-5 order-md-1">
-					<img class="featurette-image img-fluid mx-auto" src="images/couloir.jpg"
-						data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-				</div>
-			</div>
-
-			<hr class="featurette-divider">
-
-			<div class="row featurette">
-				<div class="col-md-7">
-					<h2 class="featurette-heading">Travaux de rénovation extérieur.
-						<span class="text-muted" style="font-size:2.5rem;">Je travaille également dehors</span>
-					</h2>
-					<p class="lead">La neige et le froid sont bien présents dans nos vallets l'hiver, le bois souffre!
-						Si vous avez besoin de faire rénover l'extérieur du chalet, j'intervient également sur les
-						boiseries.</p>
-				</div>
-				<div class="col-md-5">
-					<img class="featurette-image img-fluid mx-auto" src="images/balcon.jpg"
-						data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					<p class="lead"><?php echo $article["txt"]?></p>	
+				</div> 
+				<div class="col-md-5 <?php $i++; if($i % 2 == 1) echo "order-md-1";?>">
+					<img class="featurette-image img-fluid mx-auto"  src="admin/uploads/<?= $article["picture"]; ?>"
+						data-src="holder.js/500x500/auto" alt="<?= $article["alt"]; ?>">
 				</div>
 			</div>
 			<hr class="featurette-divider">
-			<!-- /fin articles accueil -->
-
-
+			<?php endforeach; ?>
+				
 			<!--début formualire contact-->
 			<section id="contact" class="mb-4 form-contact">
 				<!--Section heading-->
@@ -263,3 +236,4 @@ $techniques = getAllEntities("techniques");
 </body>
 
 </html>
+

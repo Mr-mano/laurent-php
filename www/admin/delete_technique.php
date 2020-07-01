@@ -12,6 +12,7 @@ if ($errcode) {
     header("Location: admin.php?errcode=" . $errcode);
 } else {
     header("Location: admin.php#technique");
+    exit();
 }
 
 ?>

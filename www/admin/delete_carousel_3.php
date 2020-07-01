@@ -12,6 +12,7 @@ if ($errcode) {
     header("Location: admin_carousel.php?errcode=" . $errcode);
 } else {
     header("Location: admin_carousel.php#carousel_3");
+    exit();
 }
 
 ?>

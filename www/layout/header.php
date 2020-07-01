@@ -12,10 +12,7 @@ $titre_accueil = getAllEntities("titre_accueil");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laurent Quéré</title>
     <link rel="stylesheet" href="css/styles.min.css">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
 </head>
 
 <body>
