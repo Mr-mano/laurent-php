@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/../model/database.php";
-$titre_accueil = getAllEntities("titre_accueil");
+$adresses = getAllEntities("adresse");
 
 ?>
 <!DOCTYPE html>
@@ -25,28 +25,28 @@ $titre_accueil = getAllEntities("titre_accueil");
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
-                <li class="nav-item  px-5">
-                    <a class="nav-link" href="index.php">Accueil
+                <li class="nav-item mx-auto">
+                    <a class="nav-link mx-5" href="index.php">Accueil
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item px-5">
-                    <a class="nav-link" href="realisation.php">Réalisations</a>
+                <li class="nav-item mx-auto">
+                    <a class="nav-link mx-5" href="realisation.php">Réalisations</a>
                 </li>
-                <li class="nav-item px-5">
-                    <a class="nav-link" href="index.php#contact">Contact</a>
+                <li class="nav-item mx-auto">
+                    <a class="nav-link mx-5" href="index.php#contact">Contact</a>
                 </li>
                 <?php if(!isset($_SESSION['connect'])){ ?>
                     <?php } else { ?>
-                        <li class="nav-item px-5">
-                    <a class="nav-link" href="admin/admin.php">Admin</a>
+                        <li class="nav-item mx-auto">
+                    <a class="nav-link mx-5" href="admin/admin.php">Admin</a>
                 </li>
                 <?php  }?>
             </ul>
         </div>
         <div class="phone__container d-flex">
-        <?php foreach ($titre_accueil as $titre_accueils) : ?>
-            <span class="phone__icone-phone" data-container="body" data-toggle="popover" data-placement="bottom" title="<?php echo $titre_accueils["nom_prenom"];?>" data-content=" 06.09.02.72.91"><i class="fa fa-phone" aria-hidden="true" ></i></span>
+        <?php foreach ($adresses as $adresse) : ?>
+            <span class="phone__icone-phone" data-container="body" data-toggle="popover" data-placement="bottom" title="<?= $adresse["nom_prenom"];?>" data-content="<?= $adresse["tel"]?>"><i class="fa fa-phone" aria-hidden="true" ></i></span>
             <?php endforeach; ?>
         </div>
             

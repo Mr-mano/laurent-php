@@ -144,14 +144,58 @@ function getTechnique(int $id) {
     return $stmt->fetch();
 }
 
-function getArticlesById() {
+function getArticle(int $id) {
     /* @var $connection PDO */
     global $bdd;
-    $query = "SELECT id FROM articles";
+    $query = "SELECT * FROM articles WHERE articles.id = :id;";
     $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
     $stmt->execute();
 
-    return $stmt->fetchAll();
+    return $stmt->fetch();
 }
 
+function getTitreAccueil(int $id) {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = "SELECT * FROM titre_accueil WHERE titre_accueil.id = :id;";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
 
+    return $stmt->fetch();
+}
+
+function getAdresse(int $id) {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = "SELECT * FROM adresse WHERE adresse.id = :id;";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+
+    return $stmt->fetch();
+}
+
+function insertEntity(string $table, array $record){
+    global $bdd;
+    $query = "INSERT INTO $table (";
+
+    foreach ($record as $key => $item) {
+        $query .= $key . ',';
+    }
+    $query = rtrim($query,",") . ")";
+    $query .= " VALUES (";
+
+    foreach($record as $key => $item) {
+        $query .= ':' . $key . ',';
+    }
+    $query = rtrim($query,",") . ")";
+    $stmt = $bdd->prepare($query);
+
+    foreach($record as $key => $item) {
+        $stmt->bindValue(":" . $key , $item);
+    }
+    $stmt->execute();
+    return $bdd->lastInsertId();
+}

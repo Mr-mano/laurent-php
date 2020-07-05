@@ -8,6 +8,7 @@ $carousel_2 = getCarousel("carousel_2");
 $carousel_3 = getCarousel("carousel_3");
 $techniques = getAllEntities("techniques");
 $articles = getAllEntities("articles");
+$adresses = getAllEntities("adresse");
 $errcode = isset($_GET["errcode"]) ? $_GET["errcode"] : NULL;
 
 
@@ -100,24 +101,21 @@ $errcode = isset($_GET["errcode"]) ? $_GET["errcode"] : NULL;
 			<!--FIN SPECIALITES, TECHNIQUES-->
 
 <!--AFFICHAGES DES ARTICLES-->
-		
-			<?php
-/* exemple 1 */
+<?php 
 $tab = count($articles); 
 $i = 1;
 ?>
 				<?php foreach ($articles as $article) : ?>
-					<?php while ($i <= $tab) : $i++; endwhile;?>
-				<div><?php echo $i++; if($i % 2 == 1) echo " Pair"; else echo " Impair";?></div>
+					<?php while ($i < $tab) : $i++; endwhile;?>
+					<?php $i++;?>
 				<div class="row featurette">
-				
-				<div class="col-md-7 <?php $i++; if($i % 2 == 1) echo "order-md-2";?>">
+				<div class="col-md-7 <?php if($i % 2 == 1) echo "order-md-2";?>">
 					<h2 class="featurette-heading"><?php echo $article["titre_1"]?>
 						<span class="text-muted" style="font-size:2.5rem;"><?php echo $article["titre_2"]?></span>
 					</h2>
 					<p class="lead"><?php echo $article["txt"]?></p>	
 				</div> 
-				<div class="col-md-5 <?php $i++; if($i % 2 == 1) echo "order-md-1";?>">
+				<div class="col-md-5 <?php if($i % 2 == 1) echo "order-md-1";?>">
 					<img class="featurette-image img-fluid mx-auto"  src="admin/uploads/<?= $article["picture"]; ?>"
 						data-src="holder.js/500x500/auto" alt="<?= $article["alt"]; ?>">
 				</div>
@@ -130,10 +128,9 @@ $i = 1;
 				<!--Section heading-->
 				<h2 class="h1-responsive font-weight-bold text-center my-4">Contact.</h2>
 				<!--Section description-->
-				<p class="text-center w-responsive mx-auto mb-5">Vous souhaitez engager des travaux, neuf ou rénovation,
-					vous souhaitez repeindre un bien immobilier pour mieux le vendre (home Stadging),
-					rafraichir une location saisonière... n'hésitez pas à me contacter par mail via le formulaire
-					ci-dessous ou bien directement par téléphone.</p>
+				<?php foreach ($adresses as $adresse) : ?>
+				<p class="text-center w-responsive mx-auto mb-5"><?= $adresse["txt"]; ?></p>
+					<?php endforeach ?>
 				<div class="row">
 					<!--Grid column-->
 					<div class="col-md-9 mb-md-0 mb-5">
@@ -190,21 +187,25 @@ $i = 1;
 					<!--Grid column-->
 					<!--Grid column-->
 					<div class="col-md-3 text-center">
+
 						<ul class="list-unstyled mb-0">
+						<?php foreach ($adresses as $adresse) : ?>
 							<li>
-								<i class="fas fa-map-marker-alt fa-2x"></i>
-								<p style="color: #0c65ff;">160 che Vieille Crusaz</p>
-								<p style="color: #0c65ff;">74110 Morzine</p>
-								<p style="color: #0c65ff;">siret : 522972553</p>
+								<i class="fas fa-map-marker-alt fa-2x m-2"></i>
+								<h5 class="m-0" style="color: #0c65ff;"><?php echo $adresse["nom_prenom"]?></h5>
+								<h4 class="m-0" style="color: #0c65ff;"><?php echo $adresse["artisan"]?></h4>
+								<p class="m-0" style="color: #0c65ff;"><?php echo $adresse["codepostal"] ." ". $adresse["ville"]?></p>
+								<p class="m-0" style="color: #0c65ff;">siret : <?php echo $adresse["siret"]?></p>
 							</li>
 							<li>
-								<i class="fas fa-phone mt-4 fa-2x"></i>
-								<p style="color: #0c65ff;">06 09 02 72 91</p>
+								<i class="fas fa-phone mt-4 fa-2x m-2"></i>
+								<h6 style="color: #0c65ff;"><?php echo $adresse["tel"]?></h6>
 							</li>
 							<li>
-								<i class="fas fa-envelope mt-4 fa-2x"></i>
-								<p style="color: #0c65ff;">contact-laurent@orange.fr</p>
+								<i class="fas fa-envelope mt-4 fa-2x m-2"></i>
+								<p style="color: #0c65ff;"><?php echo $adresse["email"]?></p>
 							</li>
+							<?php endforeach ?>
 						</ul>
 					</div>
 					<!--Grid column-->

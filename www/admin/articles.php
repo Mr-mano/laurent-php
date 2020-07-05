@@ -21,12 +21,11 @@ if(isset($_POST['titre_1']) && isset($_POST['titre_2']) && isset($_POST['txt']) 
           $alt = $_POST['alt'];
           
       
-          $query = "INSERT INTO articles(titre_1, titre_2, txt, picture, alt) VALUES(? , ?, ?, ?, ?)";
-          $stmt = $bdd->prepare($query);
-          $stmt->execute([$titre_1, $titre_2, $txt, $picture['name'], $alt]);
+          insertEntity("articles", ['titre_1' => $titre_1, 'titre_2' => $titre_2, "txt" => $txt, 'picture' => $picture['name'], 'alt' => $alt]);
           
       }
       header("location: admin.php#article");
       exit();
   }
 }
+

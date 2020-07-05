@@ -44,26 +44,23 @@ $carousel_3 = getCarousel("carousel_3");
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarCollapse">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
             <ul class="navbar-nav">
-            <li class="nav-item  px-3">
+                <li class="nav-item  mx-auto">
                     <a class="nav-link" href="admin_carousel.php">Carousel
                     </a>
                 </li>
-                <li class="nav-item  px-3">
-                    <a class="nav-link" href="admin.php">Admin accueil
+                <li class="nav-item  mx-auto">
+                    <a class="nav-link" href="admin.php">Accueil
                     </a>
                 </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Admin réalisations</a>
+                <li class="nav-item mx-auto">
+                    <a class="nav-link" href="#">Réalisations</a>
                 </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Info contact</a>
+                <li class="nav-item mx-auto">
+                <a class="nav-link" style="color:#309930;" href="../index.php">Voir site</a>
                 </li>
-                <li class="nav-item px-3">
-                <a class="nav-link" href="../index.php">Voir site</a>
-                </li>
-                <li class="nav-item px-3">
+                <li class="nav-item mx-auto">
                 <a class="nav-link" href="../deconnection.php">Déconnexion</a>
                 </li>
             </ul>

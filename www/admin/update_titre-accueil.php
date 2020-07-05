@@ -66,10 +66,6 @@ if(isset($_POST['id']) && isset($_POST['nom_prenom']) && isset($_POST['job']) &&
         
 </main>
 </body>	
+<!-- FIN SESSION-->
 <?php } ?>
-
-
-
-
-
 </html>

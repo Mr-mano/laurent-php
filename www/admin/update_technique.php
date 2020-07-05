@@ -28,7 +28,7 @@ if(isset($_POST['id']) && isset($_POST['libelle']) && isset($_POST['txt']) && is
         <form method="POST" action="update_technique.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="d-flex align-items-center">
-                            <img class="rounded-circle" style="height:75px;" src="uploads/<?= $technique["picture"]; ?>" alt=""><?= $technique["picture"]; ?>
+                            <img class="rounded-circle" style="height:75px;" src="uploads/<?= $technique["picture"]; ?>" alt=""><?= $technique["alt"]; ?>
                             <a class="btn btn-primary  mx-5" href="update_technique_picture.php?id=<?= $technique["id"]; ?>"> Modifier l'image</a>
                         </div>
                     </div>
