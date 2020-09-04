@@ -43,35 +43,7 @@ $adresses = getAllEntities("adresse");
         <!-- si l'administrateur est connecté affiche ça -->
 <body>
 <!-- HEADER -->
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style=".d-flex{display: none;}">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarCollapse">
-            <ul class="navbar-nav">
-                <li class="nav-item  mx-auto">
-                    <a class="nav-link mx-2" href="admin_carousel.php">Carousel
-                    </a>
-                </li>
-                <li class="nav-item  mx-auto">
-                    <a class="nav-link mx-2" href="admin.php">Accueil
-                    </a>
-                </li>
-                <li class="nav-item mx-auto">
-                    <a class="nav-link mx-2" href="admin_realisation.php">Réalisations</a>
-                </li>
-                <li class="nav-item mx-auto">
-                    <a class="nav-link mx-2" href="../index.php">Voir le site</a>
-                </li>
-                <li class="nav-item mx-auto">
-                    <a class="nav-link mx-2" href="../deconnection.php">Déconnexion</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<?php require_once __DIR__ . "/layout/header.php"; ?>
 <main>
 
     <!--AFFICHAGE TITRE ACCUEIL-->
@@ -86,6 +58,7 @@ $adresses = getAllEntities("adresse");
                         <th scope="col" style="text-align:center;">Nom</th>
                         <th scope="col" style="text-align:center;">Titre</th>
                         <th scope="col" style="text-align:center;">ville</th>
+                        <th scope="col" style="text-align:center;">présentation</th>
                         <th scope="col" style="text-align:center;">Modifier</th>
                         <th scope="col" style="text-align:center;">Supprimer</th>
                     </tr>
@@ -98,6 +71,7 @@ $adresses = getAllEntities("adresse");
                     <td style="text-align:center;vertical-align: center;"><?php echo $titre_accueils["nom_prenom"]?></td>
                     <td style="text-align:center;vertical-align: center;"><?php echo $titre_accueils["job"]?></td>
                     <td style="text-align:center;vertical-align: center;"><p class="text-justify"><?php echo $titre_accueils["ville"]?></p></td>
+                    <td style="text-align:center;vertical-align: center;"><p class="text-justify"><?php echo $titre_accueils["txt"]?></p></td>
                     <td style="text-align:center;vertical-align: center;">
                         <form method="post" action="update_titre-accueil.php">
                         <input type="hidden" name="id" value="<?= $titre_accueils["id"]; ?>">
@@ -135,6 +109,10 @@ $adresses = getAllEntities("adresse");
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Ville</label>
                     <input type="text" name="ville" class="form-control" id="formGroupExampleInput2" required>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Présentation</label>
+                    <input type="text" name="txt" class="form-control" id="formGroupExampleInput2" required>
                 </div>
                     <div class="d-flex justify-content-center">
                     <button class="btn btn-primary mt-2 " type="submit">Envoyer</button>
@@ -190,7 +168,7 @@ $adresses = getAllEntities("adresse");
                 <form method="POST" action="admin.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Photo (8MO maxi)</label>
-                        <input type="file" name="picture"class="form-control-file" id="exampleFormControlFile1">
+                        <input type="file" name="picture" class="form-control-file" id="exampleFormControlFile1">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Titre</label>

@@ -39,7 +39,28 @@ function getAllEntities(string $table){
     return $stmt->fetchAll();  
 }
 
+function insertEntity(string $table, array $record){
+    global $bdd;
+    $query = "INSERT INTO $table (";
 
+    foreach ($record as $key => $item) {
+        $query .= $key . ',';
+    }
+    $query = rtrim($query,",") . ")";
+    $query .= " VALUES (";
+
+    foreach($record as $key => $item) {
+        $query .= ':' . $key . ',';
+    }
+    $query = rtrim($query,",") . ")";
+    $stmt = $bdd->prepare($query);
+
+    foreach($record as $key => $item) {
+        $stmt->bindValue(":" . $key , $item);
+    }
+    $stmt->execute();
+    return $bdd->lastInsertId();
+}
 
 
 /** Count * sur une table donnée en paramètre
@@ -83,55 +104,19 @@ function delete(string $table, int $id){
         return $errcode;
     }
 
-    function getAllTechniques(int $id = null)
-{
+    function getAllTechniques(int $id = null){
     global $bdd;
-
     $query = " SELECT * FROM techniques";
-
     if (isset($id)) {
         $query .= " WHERE id = :id";
     }
-
     $stmt = $bdd->prepare($query);
     if (isset($id)) {
         $stmt->bindParam(":id", $id);
     }
     $stmt->execute();
-
     return (isset($id)) ? $stmt->fetch() : $stmt->fetchAll();
 }
-
-
-function editTitreAccueil(int $id, string $nom_prenom, string $job, string $ville) {
-    /* @var $connection PDO */
-    global $bdd;
-    
-    $query = "UPDATE titre_accueil SET nom_prenom = :nom_prenom, job = :job, ville = :ville WHERE id = :id;";
-
-    $stmt = $bdd->prepare($query);
-    $stmt->bindParam(":id", $id);
-    $stmt->bindParam(":nom_prenom", $nom_prenom);
-    $stmt->bindParam(":job", $job);
-    $stmt->bindParam(":ville", $ville);
-    $stmt->execute();
-}
-
-function editTechnique(int $id, string $libelle, string $txt, string $alt, string $picture) {
-    /* @var $connection PDO */
-    global $bdd;
-    
-    $query = "UPDATE techniques SET libelle = :libelle, txt = :txt, alt = :alt,  picture = :picture WHERE id = :id;";
-
-    $stmt = $bdd->prepare($query);
-    $stmt->bindParam(":id", $id);
-    $stmt->bindParam(":libelle", $libelle);
-    $stmt->bindParam(":txt", $txt);
-    $stmt->bindParam(":alt", $alt);
-    $stmt->bindParam(":picture", $picture);
-    $stmt->execute();
-}
-
 
 function getTechnique(int $id) {
     /* @var $connection PDO */
@@ -176,26 +161,59 @@ function getAdresse(int $id) {
 
     return $stmt->fetch();
 }
-
-function insertEntity(string $table, array $record){
+/** Récupère les photos liées aux réalisations
+ * @param int $id id de realisation
+ * @return array
+ */
+function getAllRealisationPicture(int $id){
     global $bdd;
-    $query = "INSERT INTO $table (";
-
-    foreach ($record as $key => $item) {
-        $query .= $key . ',';
-    }
-    $query = rtrim($query,",") . ")";
-    $query .= " VALUES (";
-
-    foreach($record as $key => $item) {
-        $query .= ':' . $key . ',';
-    }
-    $query = rtrim($query,",") . ")";
+    $query = " SELECT realisations.id, pictures.id, photo_rea, alt_img
+                FROM realisations
+                INNER JOIN pictures on realisations.id = pictures.realisation_id
+                WHERE pictures.realisation_id = :id";
     $stmt = $bdd->prepare($query);
-
-    foreach($record as $key => $item) {
-        $stmt->bindValue(":" . $key , $item);
-    }
+    $stmt->bindParam(":id", $id);
     $stmt->execute();
-    return $bdd->lastInsertId();
+    return $stmt->fetchAll();
+}
+
+function getRealisation(int $id) {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = "SELECT * FROM realisations WHERE realisations.id = :id;";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+
+    return $stmt->fetch();
+}
+
+
+
+
+function getIdRealisation(int $id){
+    global $bdd;
+    $query = "SELECT realisation_id FROM pictures ";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
+function getPicture(int $id) {
+    /* @var $connection PDO */
+    global $bdd;
+    $query = " SELECT * FROM pictures WHERE pictures.id = :id";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+    return $stmt->fetch();
+} 
+function getRealisationById(int $id){
+    global $bdd;
+    $query = "SELECT * FROM realisations";
+    $stmt = $bdd->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+    return $stmt->fetchAll();
 }

@@ -74,33 +74,44 @@ $errcode = isset($_GET["errcode"]) ? $_GET["errcode"] : NULL;
 		<!-- FIN DU CAROUSEL -->
 
 		<!--TITRE PRESENTATION NOM, PRENOM, ARTISAN...-->
-		<div class="container marketing">
-			<div class="container mt-5">
+		<section class="pt-5">
+		<div class="container marketing ">
+			<div class="container mt-5"> 
 				<?php foreach ($titre_accueil as $titre_accueils) : ?>
-					<h3 class="titre__h3-accueil"><?php echo $titre_accueils["nom_prenom"];?></h3>
-					<h1 class="titre__h1-accueil">
+					<h1 class="titre__h1-accueil mt-1">
+					<i class="fas fa-paint-roller"></i> 
 					<?php echo $titre_accueils["job"];?>
 					</h1>
-					<h2 class="titre__h2-accueil"><?php echo $titre_accueils["ville"];?></h2>
+					<h3 class="text-muted mt-2 ml-5"><?php echo $titre_accueils["nom_prenom"];?></h3>
+					<h2 class="titre__h2-accueil mt-1"><?php echo $titre_accueils["ville"];?></h2>
+						<div class="container m-4">
+							<p style="text-align:justify; font-size:1.2rem;"><?php echo $titre_accueils["txt"];?></p>
+						</div>
 				<?php endforeach; ?>
 			</div>
-
+			
 
 			<!--SPECIALITES, TECHNIQUES PEINTURE, ENDUIT...-->
-			<div class="row">
+			<div class="row mt-5">
 			<!--AFFICHAGES SPECIALITES, TECHNIQUES-->
 			<?php foreach ($techniques as $technique) : ?>
 				<div class="col-lg-4 mt-5">
-						<img class="rounded-circle"  src="admin/uploads/<?= $technique["picture"]; ?>" alt="<?= $technique["alt"]; ?>" width="140" height="140">
+						<img class="rounded-circle"  src="admin/uploads/<?= $technique["picture"]; ?>" alt="<?= $technique["alt"]; ?>" width="170" height="170">
 						<h2><?php echo $technique["libelle"]?></h2>
-						<p><?php echo $technique["txt"]?></p>
+						<p class="titre__h2-accueil mt-2"><?php echo $technique["txt"];?></p>
 				</div>
 				<?php endforeach; ?>
 			</div>
+			<div class="container d-flex justify-content-center mt-5">
+			<a class="btn btn-primary envoyer-contact" href="index.php#contact">Demander un devis</a>
+			</div>
 			<hr class="featurette-divider">
 			<!--FIN SPECIALITES, TECHNIQUES-->
-
+			
+			
+			
 <!--AFFICHAGES DES ARTICLES-->
+			
 <?php 
 $tab = count($articles); 
 $i = 1;
@@ -108,10 +119,11 @@ $i = 1;
 				<?php foreach ($articles as $article) : ?>
 					<?php while ($i < $tab) : $i++; endwhile;?>
 					<?php $i++;?>
+					
 				<div class="row featurette">
 				<div class="col-md-7 <?php if($i % 2 == 1) echo "order-md-2";?>">
-					<h2 class="featurette-heading"><?php echo $article["titre_1"]?>
-						<span class="text-muted" style="font-size:2.5rem;"><?php echo $article["titre_2"]?></span>
+					<h2 class="featurette-heading" style="font-size:3rem;"><?php echo $article["titre_1"]?><br>
+						<span class="text-muted" style="font-size:2rem;"><?php echo $article["titre_2"]?></span>
 					</h2>
 					<p class="lead"><?php echo $article["txt"]?></p>	
 				</div> 
@@ -122,11 +134,11 @@ $i = 1;
 			</div>
 			<hr class="featurette-divider">
 			<?php endforeach; ?>
-				
+			</section>
 			<!--début formualire contact-->
 			<section id="contact" class="mb-4 form-contact">
 				<!--Section heading-->
-				<h2 class="h1-responsive font-weight-bold text-center my-4">Contact.</h2>
+				<h2 class="h1-responsive font-weight-bold text-center my-4">Contact / Devis</h2>
 				<!--Section description-->
 				<?php foreach ($adresses as $adresse) : ?>
 				<p class="text-center w-responsive mx-auto mb-5"><?= $adresse["txt"]; ?></p>
@@ -178,13 +190,12 @@ $i = 1;
 							</div>
 							<!--Grid row-->
 						</form>
-						<div class="text-center text-md btn-envoyer">
+						<div class="text-center text-md btn-envoyer pl-5">
 							<a class="btn btn-primary envoyer-contact"
 								onclick="document.getElementById('contact-form').submit();">Envoyer</a>
 						</div>
 						<div class="status"></div>
 					</div>
-					<!--Grid column-->
 					<!--Grid column-->
 					<div class="col-md-3 text-center">
 
@@ -227,6 +238,8 @@ $i = 1;
 <script src="js/jquery-slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+
 
 
 	<script>

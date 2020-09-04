@@ -38,35 +38,7 @@ $carousel_3 = getCarousel("carousel_3");
         <!-- si l'administrateur est connecté affiche ça -->
 <body>
 <!-- HEADER -->
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style=".d-flex{display: none;}">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
-            <ul class="navbar-nav">
-                <li class="nav-item  mx-auto">
-                    <a class="nav-link" href="admin_carousel.php">Carousel
-                    </a>
-                </li>
-                <li class="nav-item  mx-auto">
-                    <a class="nav-link" href="admin.php">Accueil
-                    </a>
-                </li>
-                <li class="nav-item mx-auto">
-                    <a class="nav-link" href="#">Réalisations</a>
-                </li>
-                <li class="nav-item mx-auto">
-                <a class="nav-link" style="color:#309930;" href="../index.php">Voir site</a>
-                </li>
-                <li class="nav-item mx-auto">
-                <a class="nav-link" href="../deconnection.php">Déconnexion</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<?php require_once __DIR__ . "/layout/header.php"; ?>
 <main>
 
 <!-- AFFICHAGE IMAGE_1 CAROUSEL-->
@@ -122,7 +94,7 @@ $carousel_3 = getCarousel("carousel_3");
     </div>
     <div class="form-group">
         <label for="exampleFormControlFile1">Image (8MO maxi)</label>
-        <input type="file" name="image"class="form-control-file" id="exampleFormControlFile1">
+        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
     </div>
     <div class="form-group">
         <label for="formGroupExampleInput2">Description de l'image (référencement)</label>

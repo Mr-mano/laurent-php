@@ -3,15 +3,16 @@ session_start();
 require_once __DIR__ . "/../model/database.php";
 $titre_accueils = getAllEntities("titre_accueil");
 
-if(isset($_POST['id']) && isset($_POST['nom_prenom']) && isset($_POST['job']) && isset($_POST['ville'])){
+if(isset($_POST['id']) && isset($_POST['nom_prenom']) && isset($_POST['job']) && isset($_POST['ville']) && isset($_POST['txt'])){
 
     $id = $_POST['id'];
     $nom_prenom = $_POST['nom_prenom'];
     $job = $_POST['job'];
     $ville = $_POST['ville'];
+    $txt = $_POST['txt'];
 
     //$errcode = editTitreAccueil($id, $nom_prenom, $job, $ville);
-    $errcode = updateEntity("titre_accueil", $id, ['nom_prenom' => $nom_prenom, 'job' => $job, 'ville' => $ville]);
+    $errcode = updateEntity("titre_accueil", $id, ['nom_prenom' => $nom_prenom, 'job' => $job, 'ville' => $ville, 'txt' => $txt]);
     
     if ($errcode) {
         header("Location: admin.php?errcode=" . $errcode);
@@ -49,6 +50,10 @@ if(isset($_POST['id']) && isset($_POST['nom_prenom']) && isset($_POST['job']) &&
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Ville</label>
                         <input type="text" name="ville" class="form-control" id="input_titre" value="<?php echo $titre_accueil["ville"]; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Présentation</label>
+                        <input type="text" name="txt" class="form-control" id="input_titre" rows="4" value="<?php echo $titre_accueil["txt"]; ?>">
                     </div>
                     <div class="d-flex justify-content-center">
                         <div class="d-flex justify-content-center">

@@ -43,4 +43,5 @@ function showSlides(n) {
 /*POPOVER */
 $(function () {
     $('[data-toggle="popover"]').popover()
-  })
+})
+

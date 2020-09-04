@@ -16,19 +16,12 @@ if(isset($_POST['nom_prenom']) && isset($_POST['artisan']) && isset($_POST['adre
             $txt = $_POST['txt'];
             
             
-            $errcode = 0;
-
-            $query  = "INSERT INTO adresse(nom_prenom, artisan, adresse, codepostal, ville, siret, tel, email, txt) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = $bdd->prepare($query);
+            insertEntity("adresse", ['nom_prenom' => $nom_prenom, 'artisan' => $artisan, 'adresse' => $adresse, 'codepostal' => $codepostal, 'ville' => $ville,
+            'siret' => $siret, 'tel' => $tel, 'email' => $email, 'txt' => $txt, ]);
             
-            try{
-                $stmt->execute([$nom_prenom, $artisan, $adresse, $codepostal, $ville, $siret, $tel, $email, $txt]);
-                header("Location: admin.php#adresse");
-            }catch (PDOExeption $e){
-                $errcode = $e->getMessage();
-            }
-            return $errcode;
-            
-        }
-        
+            header("Location: admin.php#adresse");
+            exit();
+                
     
+}
+        

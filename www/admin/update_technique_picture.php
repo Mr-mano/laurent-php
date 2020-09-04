@@ -8,7 +8,9 @@ $technique = getTechnique($id);
 
 
             if(isset($_POST['id']) && isset($_FILES['picture']['name'])){
-            
+
+                move_uploaded_file($_FILES['picture']['tmp_name'], 'uploads/'.basename($_FILES['picture']['name']));
+                
                 $id = $_POST['id'];
                 $picture = $_FILES['picture'];
             
